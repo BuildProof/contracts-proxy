@@ -1,4 +1,4 @@
-# Intuition Attestoor
+# Intuition Attestoor Contracts
 
 `Attestoor` contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestoor account. It follows the beacon proxy pattern, and is deployed via `AttestoorFactory` contract, which itself follows the transparent upgradeable proxy pattern.
 
@@ -88,4 +88,3 @@ $ forge verify-contract <0x_contract_address> ContractName --watch --chain-id <c
 
 - When verifying your smart contracts, you can use an optional parameter `--constructor-args` to pass the constructor arguments of the smart contract in the ABI-encoded format
 - The chain ID for Base Sepolia is `84532`, whereas the chain ID for Base Mainnet is `8453`
-
