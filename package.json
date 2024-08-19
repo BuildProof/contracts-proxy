@@ -1,0 +1,18 @@
+{
+  "name": "@0xintuition/attestoor-contract",
+  "version": "1.0.0",
+  "description": "Attestoor contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestoor account.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "fmt:check": "forge fmt --check",
+    "slither": "./test/tools/slither.sh"
+  },
+  "keywords": [],
+  "author": "0xIntuition",
+  "license": "BUSL-1.1",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@openzeppelin/contracts-upgradeable": "^5.0.2"
+  }
+}
