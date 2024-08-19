@@ -12,7 +12,7 @@ import {Attestoor} from "src/Attestoor.sol";
 import {AttestoorFactory} from "src/AttestoorFactory.sol";
 import {IEthMultiVault} from "src/interfaces/IEthMultiVault.sol";
 
-contract DeployAttestoor is Script {
+contract Deploy is Script {
     address deployer;
 
     address admin = 0xEcAc3Da134C2e5f492B702546c8aaeD2793965BB; // Testnet multisig Safe address
