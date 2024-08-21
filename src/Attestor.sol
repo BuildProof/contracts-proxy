@@ -8,12 +8,12 @@ import {Errors} from "src/libraries/Errors.sol";
 import {IEthMultiVault} from "src/interfaces/IEthMultiVault.sol";
 
 /**
- * @title  Attestoor
+ * @title  Attestor
  * @author 0xIntuition
  * @notice A utility contract of the Intuition protocol. It allows for the whitelisted accounts to attest
- *         on behalf of the Intuiton itself, effectively acting as an official attestoor account.
+ *         on behalf of the Intuiton itself, effectively acting as an official attestor account.
  */
-contract Attestoor is Initializable, Ownable2StepUpgradeable {
+contract Attestor is Initializable, Ownable2StepUpgradeable {
     /// @notice The EthMultiVault contract address
     IEthMultiVault public ethMultiVault;
 
@@ -33,12 +33,12 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
     /// @notice Modifier to allow only whitelisted attestors to call a function
     modifier onlyWhitelistedAttestor() {
         if (!whitelistedAttestors[msg.sender]) {
-            revert Errors.Attestoor_NotAWhitelistedAttestor();
+            revert Errors.Attestor_NotAWhitelistedAttestor();
         }
         _;
     }
 
-    /// @notice Initializes the Attestoor contract
+    /// @notice Initializes the Attestor contract
     ///
     /// @param admin The address of the admin
     /// @param _ethMultiVault EthMultiVault contract
@@ -78,13 +78,13 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         returns (uint256[] memory)
     {
         if (atomUris.length != values.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         uint256 sum = _getSum(values);
 
         if (msg.value < sum) {
-            revert Errors.Attestoor_InsufficientValue();
+            revert Errors.Attestor_InsufficientValue();
         }
 
         uint256[] memory ids = new uint256[](atomUris.length);
@@ -132,19 +132,19 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         uint256[] calldata values
     ) external payable onlyWhitelistedAttestor returns (uint256[] memory) {
         if (subjectIds.length != predicateIds.length || predicateIds.length != objectIds.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         uint256 length = subjectIds.length;
 
         if (length != values.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         uint256 sum = _getSum(values);
 
         if (msg.value < sum) {
-            revert Errors.Attestoor_InsufficientValue();
+            revert Errors.Attestor_InsufficientValue();
         }
 
         uint256[] memory ids = new uint256[](length);
@@ -176,13 +176,13 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         returns (uint256[] memory)
     {
         if (ids.length != values.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         uint256 sum = _getSum(values);
 
         if (msg.value < sum) {
-            revert Errors.Attestoor_InsufficientValue();
+            revert Errors.Attestor_InsufficientValue();
         }
 
         uint256[] memory shares = new uint256[](ids.length);
@@ -214,13 +214,13 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         returns (uint256[] memory)
     {
         if (ids.length != values.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         uint256 sum = _getSum(values);
 
         if (msg.value < sum) {
-            revert Errors.Attestoor_InsufficientValue();
+            revert Errors.Attestor_InsufficientValue();
         }
 
         uint256[] memory shares = new uint256[](ids.length);
@@ -255,11 +255,11 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         returns (uint256[] memory)
     {
         if (shares.length != ids.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         if (!_checkRedeemability(shares, ids)) {
-            revert Errors.Attestoor_SharesCannotBeRedeeemed();
+            revert Errors.Attestor_SharesCannotBeRedeeemed();
         }
 
         uint256[] memory assets = new uint256[](ids.length);
@@ -294,11 +294,11 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         returns (uint256[] memory)
     {
         if (shares.length != ids.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         if (!_checkRedeemability(shares, ids)) {
-            revert Errors.Attestoor_SharesCannotBeRedeeemed();
+            revert Errors.Attestor_SharesCannotBeRedeeemed();
         }
 
         uint256[] memory assets = new uint256[](ids.length);
@@ -314,7 +314,7 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
     /// @param _ethMultiVault EthMultiVault contract address
     function setEthMultiVault(IEthMultiVault _ethMultiVault) external onlyOwner {
         if (address(_ethMultiVault) == address(0)) {
-            revert Errors.Attestoor_InvalidEthMultiVaultAddress();
+            revert Errors.Attestor_InvalidEthMultiVaultAddress();
         }
 
         ethMultiVault = _ethMultiVault;
@@ -340,7 +340,7 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
         uint256 length = attestors.length;
 
         if (length == 0) {
-            revert Errors.Attestoor_EmptyAttestorsArray();
+            revert Errors.Attestor_EmptyAttestorsArray();
         }
 
         for (uint256 i = 0; i < length; i++) {
@@ -358,7 +358,7 @@ contract Attestoor is Initializable, Ownable2StepUpgradeable {
     /// @return bool Whether all shares can be redeemed or not
     function _checkRedeemability(uint256[] calldata shares, uint256[] calldata ids) internal view returns (bool) {
         if (shares.length != ids.length) {
-            revert Errors.Attestoor_WrongArrayLengths();
+            revert Errors.Attestor_WrongArrayLengths();
         }
 
         for (uint256 i = 0; i < ids.length; i++) {

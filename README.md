@@ -1,6 +1,6 @@
-# Intuition Attestoor Contracts
+# Intuition Attestor Contracts
 
-`Attestoor` contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestoor account. It follows the beacon proxy pattern, and is deployed via `AttestoorFactory` contract, which itself follows the transparent upgradeable proxy pattern.
+`Attestor` contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestor account. It follows the beacon proxy pattern, and is deployed via `AttestorFactory` contract, which itself follows the transparent upgradeable proxy pattern.
 
 ## Building and Running Tests
 

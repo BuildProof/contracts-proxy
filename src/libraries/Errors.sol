@@ -3,15 +3,15 @@ pragma solidity ^0.8.21;
 
 /// @title  Errors Library
 /// @author 0xIntuition
-/// @notice Library containing all custom errors detailing cases where the Attestoor and AttestoorFactory contracts may revert.
+/// @notice Library containing all custom errors detailing cases where the Attestor and AttestorFactory contracts may revert.
 library Errors {
-    ///////// ATTESTOOR ERRORS ////////////////////////////////////////////////////////////////////
+    ///////// ATTESTOR ERRORS ////////////////////////////////////////////////////////////////////
 
-    error Attestoor_DeployAttestoorFailed();
-    error Attestoor_EmptyAttestorsArray();
-    error Attestoor_InsufficientValue();
-    error Attestoor_InvalidEthMultiVaultAddress();
-    error Attestoor_NotAWhitelistedAttestor();
-    error Attestoor_SharesCannotBeRedeeemed();
-    error Attestoor_WrongArrayLengths();
+    error Attestor_DeployAttestorFailed();
+    error Attestor_EmptyAttestorsArray();
+    error Attestor_InsufficientValue();
+    error Attestor_InvalidEthMultiVaultAddress();
+    error Attestor_NotAWhitelistedAttestor();
+    error Attestor_SharesCannotBeRedeeemed();
+    error Attestor_WrongArrayLengths();
 }

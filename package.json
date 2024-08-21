@@ -1,7 +1,7 @@
 {
-  "name": "@0xintuition/intuition-contracts-attestoor",
+  "name": "@0xintuition/intuition-contracts-attestor",
   "version": "1.0.0",
-  "description": "Attestoor contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestoor account.",
+  "description": "Attestor contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestor account.",
   "type": "module",
   "main": "index.js",
   "scripts": {
