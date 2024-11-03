@@ -1,5 +1,18 @@
 # Intuition Attestor Contracts
 
+
+## Overview
+
+The **Intuition Attestor Contracts** repository contains smart contracts that serve as a **proxy attestor** within the Intuition ecosystem. These contracts enable groups of individuals to collectively attest to information or claims from a single, unified address, adding a decentralized layer of trust and credibility.
+
+With the Intuition Attestor Contracts, groups can:
+- **Act as a Collective Attestor**: Multiple individuals can attest to facts, reviews, or statements from the same address, creating a single trusted source.
+- **Enhance Credibility and Trust**: By aggregating attestations from a group, these contracts add weight and legitimacy to each claim.
+- **Support Decentralized Verification**: This approach allows communities, organizations, or DAOs to issue collective attestations without needing each member to use a separate address.
+
+These proxy attestor contracts are a foundational part of the Intuition knowledge graph, enabling decentralized and collaborative attestation across various entities, thereby increasing transparency and trust within the network.
+
+
 `Attestor` contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestor account. It follows the beacon proxy pattern, and is deployed via `AttestorFactory` contract, which itself follows the transparent upgradeable proxy pattern.
 
 ## Building and Running Tests
