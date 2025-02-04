@@ -2,10 +2,7 @@
 pragma solidity ^0.8.21;
 
 import {Script, console} from "forge-std/Script.sol";
-import {
-    TransparentUpgradeableProxy,
-    ITransparentUpgradeableProxy
-} from "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
+import {TransparentUpgradeableProxy, ITransparentUpgradeableProxy} from "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 import {UpgradeableBeacon} from "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol";
 
 import {Attestor} from "src/Attestor.sol";
@@ -32,33 +29,9 @@ contract Deploy is Script {
         attestor = new Attestor();
         console.logString("deployed Attestor.");
 
-        // deploy attestorBeacon pointing to the Attestor implementation contract
-        attestorBeacon = new UpgradeableBeacon(address(attestor), admin);
-        console.logString("deployed UpgradeableBeacon.");
-
-        bytes memory initData = abi.encodeWithSelector(
-            AttestorFactory.init.selector, admin, IEthMultiVault(ethMultiVault), address(attestorBeacon)
-        );
-
-        // deploy AttestorFactory implementation contract
-        attestorFactory = new AttestorFactory();
-        console.logString("deployed AttestorFactory.");
-
-        // deploy TransparentUpgradeableProxy for AttestorFactory
-        attestorFactoryProxy = new TransparentUpgradeableProxy(
-            address(attestorFactory), // logic contract address
-            admin, // initial owner of the ProxyAdmin instance tied to the proxy
-            initData // data to pass to the logic contract's initializer function
-        );
-        console.logString("deployed TransparentUpgradeableProxy for AttestorFactory.");
-
         // stop sending tx's
         vm.stopBroadcast();
 
-        console.log("All contracts deployed successfully:");
         console.log("Attestor implementation address:", address(attestor));
-        console.log("attestorBeacon address:", address(attestorBeacon));
-        console.log("AttestorFactory implementation address:", address(attestorFactory));
-        console.log("AttestorFactory proxy address:", address(attestorFactoryProxy));
     }
 }

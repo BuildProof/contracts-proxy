@@ -1,19 +1,22 @@
-# Intuition Attestor Contracts
-
+# Permissionless EthMultiVault Proxy
 
 ## Overview
 
-The **Intuition Attestor Contracts** repository contains smart contracts that serve as a **proxy attestor** within the Intuition ecosystem. These contracts enable groups of individuals to collectively attest to information or claims from a single, unified address, adding a decentralized layer of trust and credibility.
+This repository contains a forked and modified version of the Intuition Attestor Contracts, redesigned to serve as a permissionless proxy for batch operations with EthMultiVault. The main purpose of this contract is to provide efficient batch deposit and redeem functionality for any user interacting with the EthMultiVault.
 
-With the Intuition Attestor Contracts, groups can:
-- **Act as a Collective Attestor**: Multiple individuals can attest to facts, reviews, or statements from the same address, creating a single trusted source.
-- **Enhance Credibility and Trust**: By aggregating attestations from a group, these contracts add weight and legitimacy to each claim.
-- **Support Decentralized Verification**: This approach allows communities, organizations, or DAOs to issue collective attestations without needing each member to use a separate address.
+### Key Features
 
-These proxy attestor contracts are a foundational part of the Intuition knowledge graph, enabling decentralized and collaborative attestation across various entities, thereby increasing transparency and trust within the network.
+- **Permissionless Access**: Anyone can use the proxy contract to interact with EthMultiVault
+- **Batch Operations**: Efficient handling of multiple deposits and redemptions in a single transaction
+- **Gas Optimization**: Reduced transaction costs through batched operations
+- **Direct User Ownership**: All operations maintain direct ownership of assets by the end user
 
+For detailed information about the modifications and architectural changes, see our [Action Plan](./action_plan.md).
 
-`Attestor` contract allows for the whitelisted accounts to attest on behalf of the Intuiton itself, effectively acting as an official attestor account. It follows the beacon proxy pattern, and is deployed via `AttestorFactory` contract, which itself follows the transparent upgradeable proxy pattern.
+### Deployments
+
+The contract is currently deployed on Base Sepolia at:
+[0x60d7753825673a9d1942a117bfa63f7d9e16dcc4](https://sepolia.basescan.org/address/0x60d7753825673a9d1942a117bfa63f7d9e16dcc4)
 
 ## Building and Running Tests
 
@@ -66,7 +69,7 @@ $ fuzz forge test
 #### Run Slither (Static Analysis)
 
 - Install the `slither-analyzer` package:
-  
+
 ```shell
   $ pip3 install slither-analyzer
 ```
@@ -79,8 +82,9 @@ $ fuzz forge test
 
 ### Deployment Process
 
-To deploy the smart contracts on to a public testnet or mainnet, you’ll need the following:
-- RPC URL of the network that you’re trying to deploy to (as for us, we’re targeting Base Sepolia testnet as our target chain for the testnet deployments)
+To deploy the smart contracts on to a public testnet or mainnet, you'll need the following:
+
+- RPC URL of the network that you're trying to deploy to (as for us, we're targeting Base Sepolia testnet as our target chain for the testnet deployments)
 - Export `PRIVATE_KEY` of a deployer account in the terminal, and fund it with some test ETH to be able to cover the gas fees for the smart contract deployments
 - For Base Sepolia, there is a reliable [testnet faucet](https://alchemy.com/faucets/base-sepolia) deployed by Alchemy
 - Deploy smart contracts using the following command:
@@ -91,7 +95,7 @@ $ forge script script/Deploy.s.sol --broadcast --rpc-url <your_rpc_url> --privat
 
 ### Deployment Verification
 
-To verify the deployed smart contracts on Etherscan, you’ll need to export your Etherscan API key as `ETHERSCAN_API_KEY` in the terminal, and then run the following command:
+To verify the deployed smart contracts on Etherscan, you'll need to export your Etherscan API key as `ETHERSCAN_API_KEY` in the terminal, and then run the following command:
 
 ```shell
 $ forge verify-contract <0x_contract_address> ContractName --watch --chain-id <chain_id>
